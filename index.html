@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>阿大部留滴</title>
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			font-family: '微軟正黑體';
+			text-decoration: none;
+		}
+		.header{
+			position: absolute;
+			display: block;
+			width: 100%;
+			top: 0;
+			left: 0;
+			height: 55px;
+			background: rgba(0,0,0,0.75);
+		    /*position: relative;*/
+		    display: flex;
+			align-items:center;
+		}
+		.header h1{
+			margin-left: 10px;
+			color: #fff;
+		}
+		.menu_btn{
+	    	width: 40px;
+	    	height: 40px;
+	    	display:block;
+	    	position: absolute;
+	    	top: 5px;
+	    	right: 10px;
+	    }
+	    .menu_btn span{
+		    opacity: 0;
+		    width: 1px;
+		    height: 1px;
+		    display: block;
+		    overflow: hidden;
+		}
+		.menu_btn::before{
+		    content:'';
+		    position: absolute;
+		    height: 3px;
+		    width: 36px;
+		    background-color: #fff;
+		    top: 0;
+		    bottom: 0;
+		    margin: auto;
+		    box-shadow:0px 8px 0px #fff,
+		               0px -8px 0px #fff;
+		}
+		nav{
+	    	width: 80%;
+	    	height: calc(100vh - 50px);
+	    	background-color: #282923;
+	    	position: absolute;
+	    	top: 50px;
+	    	left: -100%;
+	    	transition:.5s;
+	    } 
+	    nav a{
+	    	display: block;
+	    	text-decoration:none;
+	    	color:#a6e22c;
+	    	padding: 10px 20px;
+	    	border-bottom:1px solid #a6e22c;
+	    }
+	    #menu_control{
+    		position: absolute;
+    		opacity: 0;
+    	}
+    	#menu_control:checked ~ .wrap .header nav{
+    		left: 0;
+    	}
+    	.banner {
+			background-color: #130300;
+			width: 100%;
+			z-index: -10;
+		}
+		
+		.banner .pic{	
+			margin: 0;	
+			width: 100%;
+			height: 350px;
+			background-image:url('assets/header_mobile@2x.png');
+			background-repeat:no-repeat;
+			background-size:contain;
+			background-position:center;
+		}
+		.about,
+		.evaluate .title,
+		.map .title
+		{
+			padding: 20px 0;
+			text-align: center;
+		}
+		.about,
+		.evaluate,
+		.footer{
+			color: #3D1101 ;
+			background-color: #EFE9E7;
+		}
+		.item-group img{
+			border-radius: 50%;
+		}
+		.pic{
+			margin: 20px;
+		}
+		.item .text, 
+		.footer .item,
+		.footer .item-last{
+			padding: 20px;
+		}
+
+		.protagonist{
+			background-color: #3D1101 ;
+			color: #EFE9E7;
+		}
+		
+		.protagonist img,
+		.map  img{
+			border-radius: 0%;
+			width: 100%;
+			height: 100%;
+		}
+		
+		.protagonist .pic{
+			margin: 0;
+		}
+		.protagonist .title{
+			margin:10px 30px;
+		}
+		.item .text p{
+			text-align: left;
+			margin:10px 30px;
+			padding-bottom: 20px;
+		}
+		.evaluate .item-group .item{
+			display: flex;
+		}
+		.evaluate .text p,
+		.footer .text p{
+			margin: 0;
+		}
+		.evaluate .text h3{
+			padding:20px 0;
+		}
+		.evaluate .item-group .item .text h2{
+			text-align: right;
+			font-size: 16px;
+		}
+		.map .item-group{
+			text-align: left;
+		}
+		.map{
+			margin-top: 20px;
+			text-align: center;
+			color: #3D1101;
+		}
+		.map h3,
+		.map input{
+			margin-bottom: 10px;
+		}
+		.map input{
+			width: 50%;
+		}
+		.map .submit,
+		.map .cancel{
+			width: 70px; 
+			height: 32px;
+			margin: 0 13px;
+		}
+		.footer img{
+			border-radius: 0%;
+			width: 31px;
+			height: 36px;
+			padding: 0 5px;
+		}
+		.footer h2{
+			font-size: 24px;
+			padding-bottom: 15px;
+		}
+		.footer h1{
+			font-size: 49px;
+			letter-spacing: 0px;
+		}
+		.footer .item-last{
+			text-align: right;
+		}
+
+		@media (min-width: 768px) {
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.header{
+				/*左右分散*/
+        		justify-content: space-between;
+			}
+			.header h1{
+				margin-left: 40px;
+			}
+			.menu_btn{
+				display:none;
+			}
+			nav{
+		        position: relative;
+		        left: 0;
+		        display: flex;
+		        width: auto;
+		        height: auto;
+		        top: 0;
+		        /*把nav背景變透明的*/
+		        background-color: transparent;
+		     }
+		     nav a{
+		    	text-decoration:none;
+		    	color:#fff;
+		    	padding: 10px 20px;
+		    	border-bottom:none;
+		    }
+			.banner .pic{
+				height: 420px;
+				background-image:url('assets/header_desktop@2x.png');
+				background-position:cover;
+				background-size:contain;
+				/*background-position:60% 0%;*/
+			}
+			.item-group {
+  				display: flex;		
+          		justify-content: center;
+          		margin: 0 ;
+			}
+			
+			.item-group .item {
+				width: 33%;
+			}
+			.item .text {
+				margin: 0;
+			}
+			.item .text p{
+				margin:10px 20px;
+			}
+			.protagonist .item-group{
+				max-width: 1440px;
+				margin: 0 auto;
+			}
+			.protagonist .item-group .item{
+				display: flex;
+				width: 100%;
+			}
+			.protagonist .item-group .item .pic{
+				width: 50%;
+			}
+
+			.protagonist .item-group .item .text{
+				display: flex;
+				width: 50%;
+				box-sizing: border-box;
+				flex-direction: column;
+				justify-content: center;
+			}
+			
+			.evaluate .item .text p{
+				width: 80%;
+				margin: 0;
+			}
+			.evaluate .item-group{
+				display: flex;
+			}
+			
+			.map .item-group .item,
+			.map .item-group .pic {
+				width: 50%;
+			}
+			.item-group .item,
+			.footer .item-last {
+				width: 33%;
+			}
+
+			.footer .item1,
+			.footer .item3{
+				width: 35%;
+			}
+			.footer .item2{
+				width: 30%;
+			}
+			.footer .text{
+				padding: 5px;
+			}
+			.footer .item-last {
+				display: flex;
+				width: 50%;
+				box-sizing: border-box;
+				flex-direction: column;
+				justify-content: center;
+			}
+			.footer .item p{
+				margin: 0;
+				padding: 0;
+			}
+			.footer h1{
+				font-size: 48px;
+			}
+
+		}
+		@media (min-width: 1024px){
+			.header {
+				/*左右分散*/
+			    right:0;
+			    left:0;
+			    margin:0 auto;
+			
+        		max-width: 1024px;
+			}
+		}
+		@media (min-width: 1440px){
+			.about .item-group,
+			.evaluate .item-group,
+			.map .item-group,
+			.footer .item-group{
+				margin: 0 auto;
+				max-width: 1440px;
+			}
+			.map .item-group .item,
+			.map .item-group .pic {
+				margin: 0;
+			}
+			.footer{
+				margin-top: 20px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<input type="checkbox" id="menu_control">
+	<div class="wrap">
+		<div class="header">
+			<div class="title">
+				<h1>阿大部留滴</h1>
+			</div>
+			
+			<label for="menu_control" class="menu_btn">
+		    	<span>選單</span>
+		    </label>
+			<nav>
+				<a href="">特色</a>
+				<a href="">主廚</a>
+				<a href="">地圖</a>
+			</nav>
+		</div>
+		<div class="banner">
+			<div class="pic"></div>
+		</div>
+		<div class="about">
+			<div class="title">
+				<h1>客人總是在詢問</h1>
+				<h1>這麼好吃的秘訣是什麼</h1>
+			</div>
+
+			<div class="item-group">
+				<div class="item">
+					<div class="pic"><img src="assets/feature_1.png" alt=""></div>
+					<div class="text">
+						<h3>台灣本土蔬菜</h3>
+						<p>In hac habitasse platea dictumst. Vivamus adipiscing fermentum quam volutpat aliquam. Integer et elit eget elit facilisis tristique. Nam vel iaculis mauris.</p>
+					</div>
+				</div>
+
+				<div class="item">
+					<div class="pic"><img src="assets/feature_2.png" alt=""></div>
+					<div class="text">
+						<h3>專業米其林廚師</h3>
+						<p>Sed ullamcorper tellus erat, non ultrices sem tincidunt euismod. Fusce rhoncus porttitor velit, eu bibendum nibh aliquet vel. Fusce lorem leo, vehicula at nibh quis, facilisis accumsan turpis.</p>
+					</div>
+				</div>
+
+				<div class="item">
+					<div class="pic"><img src="assets/feature_3.png" alt=""></div>
+					<div class="text">
+						<h3>對於專業不能退讓</h3>
+						<p>Fusce rhoncus porttitor velit, eu bibendum nibh aliquet vel. Fusce lorem leo, vehicula at nibh quis, facilisis accumsan turpis.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="protagonist">
+			<div class="item-group">
+				<div class="item">
+					<div class="pic"><img src="assets/main_chef_brown.png" alt=""></div>
+					<div class="text">
+						<div class="title">
+							<h3>今日主廚：帕金森、梅在帕</h3>
+							<h2>Tody Chef: Plum in Shock</h2>
+						</div>
+						<p>Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero posuere vulputate. Etiam elit elit, elementum sed varius at, adipiscing vitae est. Sed nec felis pellentesque, lacinia dui sed, ultricies sapien. Pellentesque orci lectus, consectetur vel posuere posuere, rutrum eu ipsum. Aliquam eget odio sed ligula iaculis consequat at eget orci. Mauris molestie sit amet metus mattis varius. Donec sit amet ligula eget nisi sodales egestas. Aliquam interdum dolor aliquet dolor sollicitudin fermentum. Donec congue lorem a molestie bibendum.</p>
+					</div>
+				</div>	
+			</div>
+		</div>
+		<div class="evaluate">
+			<div class="title">
+				<h2>聽聽別人的感想</h2>
+			</div>
+			<div class="item-group">
+				<div class="item">
+					<div class="pic"><img src="assets/avatar_1.png" alt=""></div>
+					<div class="text">
+						<h3>高雄一口吃</h3>
+						<p>自從吃了這家餐廳以後，我口水連續流了一個多月都沒停，下次不要再被我遇到，不然我一定連他們桌子都啃下去。</p>
+						<h2> -- 產品經理</h2>
+					</div>
+				</div>
+
+				<div class="item">
+					<div class="pic"><img src="assets/avatar_2.png" alt=""></div>
+					<div class="text">
+						<h3>廟口小霸王</h3>
+						<p>自從吃了這家餐廳以後，我口水連續流了一個多月都沒停，下次不要再被我遇到，不然我一定連他們桌子都啃下去。</p>
+						<h2> -- 金身道士</h2>
+					</div>
+				</div>
+				<div class="item">
+					<div class="pic"><img src="assets/avatar_3.png" alt=""></div>
+					<div class="text">
+						<h3>春天也來了</h3>
+						<p>自從吃了這家餐廳以後，我口水連續流了一個多月都沒停，下次不要再被我遇到，不然我一定連他們桌子都啃下去。</p>
+						<h2> -- 美麗萬分</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="map" >
+			<div class="title">
+				<h1>我們的位置不太夠坐</h1>
+				<h1>要不要先定位呢？</h1>
+			</div>
+			<div class="item-group" >
+				<div class="pic">
+					<img src="assets/Map.png" alt="">
+				</div>
+				<div class="item">
+					<div class="text">
+						<h3>姓名</h3>
+						<input type="text" style="height: 30px">
+						<h3>電話</h3>
+						<input type="text" style="height: 30px">
+						<h3>信箱</h3>
+						<input type="text" style="height: 30px">
+						<h3>人數</h3>
+						<input type="text" style="height: 30px">
+						<h3>是否需要素食</h3>
+						<input type="radio" value="" style="width: 40px;"><span style="font-size: 20px; line-height: 20px;">是</span>
+						<input type="radio" value="" style="width: 40px;"><span style="font-size: 20px; line-height: 20px;">否</span>
+						<input type="button" value="送出"  class="submit">
+						<input type="button" value="取消"  class="cancel">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="item-group">
+				<div class="item item1">
+					<div class="text">
+						<h2>關於 阿大部留滴</h2>
+						<p>Curabitur lobortis id lorem id bibndum. Ut id consectetur magna. Quisque volutpat augue enim, pulvinar lobortis nibh lacinia at. </p>
+					</div>
+				</div>
+				<div class="item item2">
+					<div class="text">
+						<h2>聯絡方式</h2>
+						<p>•高雄市中正五路到底</p>
+						<p>•+886 886 886</p>
+						<p>•service@hexschool.com</p>
+					</div>
+				</div>
+				<div class="item-last item3">
+					<div class="text">
+					<h1>阿大部留滴</h1>
+						<img src="assets/google_plus.png" alt="">
+						<img src="assets/twitter.jpg" alt="">
+						<img src="assets/facebook.png" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
